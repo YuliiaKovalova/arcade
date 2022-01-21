@@ -43,7 +43,6 @@ stages:
         - task: PowerShell@2
           displayName: Validate and Locate Build
           inputs:
-            pwsh: true
             targetType: inline
             script: |
               # Keeping this script inline so that we don't need to checkout the whole repo to use just one file
@@ -54,7 +53,7 @@ stages:
                   $apiHeaders.Add('Accept', 'application/json')
                   $apiHeaders.Add('Authorization',"Bearer ${Env:MAESTRO_API_TOKEN}")
 
-                  $buildInfo = try { Invoke-WebRequest -Method Get -Uri $buildApiEndpoint -Headers $apiHeaders | ConvertFrom-Json } catch { Write-Host "Error: $_" }
+                  $buildInfo = try { Invoke-WebRequest -Method Get -Uri $buildApiEndpoint -UseBasicParsing -Headers $apiHeaders | ConvertFrom-Json } catch { Write-Host "Error: $_" }
 
                   if (!$buildInfo) {
                     Write-Host "Build with BAR ID ${Env:BARBuildId} was not found in BAR!"
@@ -65,7 +64,7 @@ stages:
                   $channelNames = @()
                   foreach ($channelId in $channels) {
                     $channelApiEndpoint = "$(MaestroApiEndPoint)/api/channels/${channelId}?api-version=$(MaestroApiVersion)"
-                    $channelInfo = try { Invoke-WebRequest -Method Get -Uri $channelApiEndpoint -Headers $apiHeaders | ConvertFrom-Json } catch { Write-Host "Error: $_" }
+                    $channelInfo = try { Invoke-WebRequest -Method Get -Uri $channelApiEndpoint -UseBasicParsing -Headers $apiHeaders | ConvertFrom-Json } catch { Write-Host "Error: $_" }
 
                     if (!$channelInfo) {
                       Write-Host "Channel with ID ${channelId} was not found in BAR. Aborting."
