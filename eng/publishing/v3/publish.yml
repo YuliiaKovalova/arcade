@@ -43,6 +43,7 @@ stages:
         - task: PowerShell@2
           displayName: Validate and Locate Build
           inputs:
+            pwsh: true
             targetType: inline
             script: |
               # Keeping this script inline so that we don't need to checkout the whole repo to use just one file
