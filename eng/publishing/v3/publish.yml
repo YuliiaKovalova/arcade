@@ -82,6 +82,8 @@ stages:
                   Write-Host $buildInfo
 
                   if ($lastIndexOfSlash -ne -1) {
+                    Write-Host $buildInfo.azureDevOpsRepository
+                    Write-Host $lastIndexOfSlash
                     $azureDevOpsRepository = $buildInfo.azureDevOpsRepository.Substring($lastIndexOfSlash + 1)
 
                     # Invalid chars in Azdo build number: '"', '/', ':', '<', '>', '\', '|', '?', '@', and '*'
