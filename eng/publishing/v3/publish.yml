@@ -50,6 +50,8 @@ stages:
               try {
                   $buildApiEndpoint = "$(MaestroApiEndPoint)/api/builds/${Env:BARBuildId}?api-version=$(MaestroApiVersion)"
 
+                  Write-Host $buildApiEndpoint
+
                   $apiHeaders = New-Object 'System.Collections.Generic.Dictionary[[String],[String]]'
                   $apiHeaders.Add('Accept', 'application/json')
                   $apiHeaders.Add('Authorization',"Bearer ${Env:MAESTRO_API_TOKEN}")
@@ -60,6 +62,8 @@ stages:
                     Write-Host "Build with BAR ID ${Env:BARBuildId} was not found in BAR!"
                     exit 1
                   }
+
+                  Write-Host $buildInfo
 
                   $channels = ${Env:PromoteToChannelIds} -split "-"
                   $channelNames = @()
