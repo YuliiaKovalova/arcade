@@ -42,9 +42,9 @@ stages:
       steps:
         - task: PowerShell@2
           displayName: Validate and Locate Build
-          pwsh: true
           inputs:
             targetType: inline
+            pwsh: true
             script: |
               # Keeping this script inline so that we don't need to checkout the whole repo to use just one file
               try {
