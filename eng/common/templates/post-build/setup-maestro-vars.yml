@@ -16,7 +16,6 @@ steps:
     displayName: Set Release Configs Vars
     inputs:
       targetType: inline
-      pwsh: true
       script: |
         try {
           if (!$Env:PromoteToMaestroChannels -or $Env:PromoteToMaestroChannels.Trim() -eq '') {
